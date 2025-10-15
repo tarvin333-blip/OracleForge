@@ -12,7 +12,7 @@ export async function updateUserProfile(uid, username, newAvatarImage) {
 
     try {
         const userRef = doc(db, 'users', uid);
-        const updateData = { username };
+        const updateData: { [key: string]: any } = { username };
 
         // If a new avatar is provided, upload it to Storage
         if (newAvatarImage) {
