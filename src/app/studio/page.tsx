@@ -163,8 +163,7 @@ export default function StudioPage() {
       }
 
       if (isEditingCard) {
-        return <CardEditor card={isEditingCard} onClose={handleCloseCardEditor} onSave={handleSaveCard} deck={selectedDeck} />;
-      }
+        return <CardEditor card={isEditingCard} onClose={handleCloseCardEditor} onSave={handleSaveCard} deck={selectedDeck} />;}
 
       if (!selectedDeck) {
           return <DeckListView decks={decks} onSelectDeck={handleSelectDeck} onCreateDeck={handleOpenCreateDeck} onEditDeck={handleOpenEditDeck} />
@@ -221,7 +220,7 @@ function DeckListView({ decks, onSelectDeck, onCreateDeck, onEditDeck }) {
                 >
                     <Pencil size={16} />
                 </button>
-              <div onClick={() => onSelectDeck(deck)} className="w-full h-48 bg-center bg-cover bg-gray-700 cursor-pointer" style={{ backgroundImage: `url(${imageUrl})` }}></div>
+              <div onClick={() => onSelectDeck(deck)} className="w-full h-48 bg-center bg-cover bg-gray-700 cursor-pointer" style={{ backgroundImage: imageUrl ? `url(${imageUrl})` : 'none' }}></div>
               <div onClick={() => onSelectDeck(deck)} className="p-4 cursor-pointer">
                 <h3 className="text-lg font-bold text-gray-100">{deck.name || 'Untitled Deck'}</h3>
                 <p className="text-sm text-gray-400">{deck.cardCount || (Array.isArray(deck.cards) ? deck.cards.length : 0)} cards</p>
@@ -249,7 +248,7 @@ function CardGridView({ deck, cards, onBack, onEditCard }) {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {cards.map((card) => (
                     <div key={card.id} onClick={() => onEditCard(card)} className="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-indigo-500/40 hover:scale-105">
-                        <div className="w-full aspect-[2/3] bg-center bg-cover bg-gray-700" style={{ backgroundImage: `url(${card.imageUrl})` }}></div>
+                        <div className="w-full aspect-[2/3] bg-center bg-cover bg-gray-700" style={{ backgroundImage: card.imageUrl ? `url(${card.imageUrl})` : 'none' }}></div>
                         <div className="p-3">
                             <h4 className="font-bold text-gray-100 truncate">{card.name}</h4>
                         </div>
@@ -316,7 +315,7 @@ function DeckEditor({ deck, onClose, onSave }) {
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">Card Back Image</label>
-                    <div className="mt-2 w-full aspect-[16/9] rounded-lg bg-gray-700 bg-cover bg-center" style={{ backgroundImage: `url(${imagePreview})` }}></div>
+                    <div className="mt-2 w-full aspect-[16/9] rounded-lg bg-gray-700 bg-cover bg-center" style={{ backgroundImage: imagePreview ? `url(${imagePreview})` : 'none' }}></div>
                     <div 
                         onDragOver={handleDragOver}
                         onDragLeave={handleDragLeave}
@@ -487,7 +486,7 @@ function CardEditor({ card, onClose, onSave, deck }) {
                         onDragLeave={handleDragLeave}
                         onDrop={handleDrop}
                         className={`aspect-[2/3] w-full bg-gray-800 rounded-lg flex items-center justify-center bg-cover bg-center border-2 border-dashed transition-all ${isDragging ? 'border-indigo-500' : 'border-gray-700'}`}
-                        style={{ backgroundImage: `url(${imagePreview})` }}
+                        style={{ backgroundImage: imagePreview ? `url(${imagePreview})` : 'none' }}
                     >
                         {!imagePreview && (
                             <div className="text-center text-gray-400">
