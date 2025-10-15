@@ -1,3 +1,4 @@
+// Restart server
 /** @type {import('next').NextConfig} */
 const nextConfig = {};
 
